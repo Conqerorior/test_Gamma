@@ -1,0 +1,26 @@
+repos:
+-   repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+    -   id: isort
+        args: ["--profile", "black", "--filter-files"]
+        files: "^test_Gamma/.*\\.py$"
+
+-   repo: https://github.com/ambv/black
+    rev: 23.3.0
+    hooks:
+    -   id: black
+        language_version: python3.9
+        files: "^test_Gamma/.*\\.py$"
+
+-   repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+    -   id: flake8
+        args:
+          - "--ignore=N811,B008,W503"
+        additional_dependencies: [pep8-naming, flake8-comments, flake8-bugbear,
+                                  flake8-comprehensions, flake8-eradicate, flake8-print,
+                                  flake8-broken-line, flake8-string-format, pyproject-flake8]
+        files: "^test_Gamma/.*\\.py$"
+        exclude: "__init__.py$,test_Gamma/test_Gamma/settings.py"
