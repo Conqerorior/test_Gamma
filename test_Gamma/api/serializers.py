@@ -1,7 +1,38 @@
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import (
+    MinValueValidator,
+    MaxValueValidator,
+    RegexValidator,
+)
 from rest_framework import serializers
 
 from posts.models import Letter, Package
+
+
+class FullNameValidator(serializers.CharField):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            validators=[
+                RegexValidator(
+                    regex=r'^[a-zA-Zа-яА-Я\s]+$',
+                    message='Некорректный формат ФИО. '
+                    'Используйте только буквы и пробелы',
+                )
+            ],
+            *args,
+            **kwargs
+        )
+
+    def run_validators(self, value):
+        super().run_validators(value)
+        self.validate_sender_full_name(value)
+
+    def validate_sender_full_name(self, value):
+        components = value.split()
+        if len(components) < 3:
+            raise serializers.ValidationError(
+                'Введите полное ФИО: Фамилия Имя Отчество'
+            )
 
 
 class IndexValidator(serializers.IntegerField):
@@ -21,6 +52,8 @@ class IndexValidator(serializers.IntegerField):
 
 
 class LetterSerializer(serializers.ModelSerializer):
+    sender_full_name = FullNameValidator()
+    recipient_full_name = FullNameValidator()
     departure_index = IndexValidator()
     destination_index = IndexValidator()
     letter_weight = serializers.IntegerField(
@@ -44,6 +77,8 @@ class LetterSerializer(serializers.ModelSerializer):
 
 
 class PackageSerializer(serializers.ModelSerializer):
+    sender_full_name = FullNameValidator()
+    recipient_full_name = FullNameValidator()
     departure_index = IndexValidator()
     destination_index = IndexValidator()
 
