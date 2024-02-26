@@ -13,6 +13,7 @@ psycopg2 = "^2.9.9"
 python-dotenv = "^1.0.1"
 flake8 = "^7.0.0"
 pre-commit = "^3.6.2"
+black = "^24.2.0"
 
 
 [build-system]
