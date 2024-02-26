@@ -16,6 +16,7 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: "3.11.1"
+        node-version: "20"
 
     - name: Get list of changed files
       id: changed-files
@@ -25,4 +26,6 @@ jobs:
       run: pip install pre-commit
 
     - name: Run pre-commit
-      run: pre-commit run -v --files ${{ join(steps.changed-files.outputs.all_changed_files, ' ') }} -c .github/workflows/.pre-commit-pr.yaml
+      run: |
+        chmod +x $(which pre-commit)
+        pre-commit run -v --files ${{ join(steps.changed-files.outputs.all_changed_files, ' ') }} -c .github/workflows/.pre-commit-pr.yaml
