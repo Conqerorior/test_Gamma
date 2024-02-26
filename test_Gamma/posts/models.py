@@ -35,9 +35,7 @@ class Letter(models.Model):
     letter_type = models.PositiveSmallIntegerField(
         default=LETTER, choices=LETTER_TYPES, verbose_name="Тип письма"
     )
-    letter_weight = models.PositiveIntegerField(
-        default=0, verbose_name="Вес письма"
-    )
+    letter_weight = models.PositiveIntegerField(verbose_name="Вес письма")
 
     class Meta:
         verbose_name = "Письма"
