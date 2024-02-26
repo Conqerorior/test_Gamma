@@ -2,7 +2,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-class Letters(models.Model):
+class Letter(models.Model):
     """
     Модель для представления информации о письмах.
     """
