@@ -16,7 +16,7 @@
   
   <img src="https://img.shields.io/badge/Django%20REST%20framework-3.14.0-092E20?style=for-the-badge&logo=django&logoColor=20B2AA">
 
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+  <img src="https://img.shields.io/badge/Docker-555555?style=for-the-badge&logo=docker&logoColor=white">
   
   <img src="https://img.shields.io/badge/PostgreSQL-555555?style=for-the-badge&logo=postgresql&logoColor=20B2AA">
 </div>
