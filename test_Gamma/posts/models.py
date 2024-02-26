@@ -45,8 +45,10 @@ class Letters(models.Model):
         ordering = ('sender_name',)
 
     def __str__(self):
-        return (f'Письмо от: {self.sender_full_name} '
-                f'для {self.recipient_full_name}')
+        return (
+            f'Письмо от: {self.sender_full_name} '
+            f'для {self.recipient_full_name}'
+        )
 
 
 class Package(models.Model):
@@ -83,9 +85,7 @@ class Package(models.Model):
     destination_index = models.PositiveIntegerField(
         verbose_name='Индекс места получения'
     )
-    phone = PhoneNumberField(
-        region='RU', verbose_name='Телефон для извещения'
-    )
+    phone = PhoneNumberField(region='RU', verbose_name='Телефон для извещения')
     package_type = models.CharField(
         default=SMALL_PACKAGE, choices=PACKAGE_TYPES, verbose_name='Тип посылки'
     )
