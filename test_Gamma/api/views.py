@@ -4,7 +4,6 @@ from api.serializers import LetterSerializer
 from posts.models import Letter
 
 
-class LetterViewSet(viewsets.ReadOnlyModelViewSet):
+class LetterViewSet(viewsets.ModelViewSet):
     queryset = Letter.objects.all()
     serializer_class = LetterSerializer
-    pagination_class = None

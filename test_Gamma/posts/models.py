@@ -42,7 +42,7 @@ class Letter(models.Model):
     class Meta:
         verbose_name = 'Письма'
         verbose_name_plural = 'Письма'
-        ordering = ('sender_name',)
+        ordering = ('sender_full_name',)
 
     def __str__(self):
         return (
@@ -89,7 +89,9 @@ class Package(models.Model):
     package_type = models.CharField(
         default=SMALL_PACKAGE, choices=PACKAGE_TYPES, verbose_name='Тип посылки'
     )
-    payment_amount = models.DecimalField(verbose_name='Сумма платежа')
+    payment_amount = models.DecimalField(
+        max_digits=6, decimal_places=2, verbose_name='Сумма платежа'
+    )
 
     class Meta:
         verbose_name = 'Посылка'
