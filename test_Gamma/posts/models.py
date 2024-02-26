@@ -49,7 +49,7 @@ class Letter(models.Model):
         )
 
 
-class Package(models.Model):
+class Package(Letter):
     """
     Модель для представления информации о посылках.
     """
@@ -67,21 +67,6 @@ class Package(models.Model):
         (VALUABLE_PACKAGE, "Ценная посылка"),
         (INTERNATIONAL_PACKAGE, "Посылка международная"),
         (EXPRESS_PACKAGE, "Экспресс-посылка"),
-    )
-
-    sender_full_name = models.CharField(
-        max_length=255, verbose_name="ФИО отправителя"
-    )
-    recipient_full_name = models.CharField(
-        max_length=255, verbose_name="ФИО получателя"
-    )
-    departure_point = models.TextField(verbose_name="Пункт отправки")
-    destination_point = models.TextField(verbose_name="Пункт получения")
-    departure_index = models.PositiveIntegerField(
-        verbose_name="Индекс места отправки"
-    )
-    destination_index = models.PositiveIntegerField(
-        verbose_name="Индекс места получения"
     )
     phone = PhoneNumberField(region="RU", verbose_name="Телефон для извещения")
     package_type = models.PositiveSmallIntegerField(
