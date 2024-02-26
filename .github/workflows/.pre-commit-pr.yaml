@@ -24,4 +24,4 @@ repos:
                                   flake8-comprehensions, flake8-eradicate, flake8-print,
                                   flake8-broken-line, flake8-string-format, pyproject-flake8]
         files: "^test_Gamma/.*\\.py$"
-        exclude: "__init__.py$,test_Gamma/test_Gamma/settings.py"
+        exclude: "__init__.py$,test_Gamma/test_Gamma/settings.py$"
