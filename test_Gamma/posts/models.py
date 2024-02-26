@@ -18,7 +18,9 @@ class Letter(models.Model):
         (EXPRESS_LETTER, "Экспресс-письмо"),
     )
 
-    sender_full_name = models.CharField(max_length=128, verbose_name="ФИО отправителя")
+    sender_full_name = models.CharField(
+        max_length=128, verbose_name="ФИО отправителя"
+    )
     recipient_full_name = models.CharField(
         max_length=128, verbose_name="ФИО получателя"
     )
@@ -33,7 +35,9 @@ class Letter(models.Model):
     letter_type = models.PositiveSmallIntegerField(
         default=LETTER, choices=LETTER_TYPES, verbose_name="Тип письма"
     )
-    letter_weight = models.PositiveIntegerField(default=0, verbose_name="Вес письма")
+    letter_weight = models.PositiveIntegerField(
+        default=0, verbose_name="Вес письма"
+    )
 
     class Meta:
         verbose_name = "Письма"
@@ -41,7 +45,10 @@ class Letter(models.Model):
         ordering = ("sender_full_name",)
 
     def __str__(self):
-        return f"Письмо от: {self.sender_full_name} " f"для {self.recipient_full_name}"
+        return (
+            f"Письмо от: {self.sender_full_name} "
+            f"для {self.recipient_full_name}"
+        )
 
 
 class Package(models.Model):
@@ -64,13 +71,17 @@ class Package(models.Model):
         (EXPRESS_PACKAGE, "Экспресс-посылка"),
     )
 
-    sender_full_name = models.CharField(max_length=255, verbose_name="ФИО отправителя")
+    sender_full_name = models.CharField(
+        max_length=255, verbose_name="ФИО отправителя"
+    )
     recipient_full_name = models.CharField(
         max_length=255, verbose_name="ФИО получателя"
     )
     departure_point = models.TextField(verbose_name="Пункт отправки")
     destination_point = models.TextField(verbose_name="Пункт получения")
-    departure_index = models.PositiveIntegerField(verbose_name="Индекс места отправки")
+    departure_index = models.PositiveIntegerField(
+        verbose_name="Индекс места отправки"
+    )
     destination_index = models.PositiveIntegerField(
         verbose_name="Индекс места получения"
     )
@@ -88,4 +99,7 @@ class Package(models.Model):
         ordering = ("sender_full_name",)
 
     def __str__(self):
-        return f"Посылка от: {self.sender_full_name} " f"для {self.recipient_full_name}"
+        return (
+            f"Посылка от: {self.sender_full_name} "
+            f"для {self.recipient_full_name}"
+        )
