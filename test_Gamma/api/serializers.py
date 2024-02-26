@@ -27,7 +27,8 @@ class FullNameValidator(serializers.CharField):
         super().run_validators(value)
         self.validate_sender_full_name(value)
 
-    def validate_sender_full_name(self, value):
+    @staticmethod
+    def validate_sender_full_name(value):
         components = value.split()
         if len(components) < 3:
             raise serializers.ValidationError(
@@ -51,11 +52,17 @@ class IndexValidator(serializers.IntegerField):
         )
 
 
-class LetterSerializer(serializers.ModelSerializer):
+class BaseSerializer(serializers.ModelSerializer):
     sender_full_name = FullNameValidator()
     recipient_full_name = FullNameValidator()
     departure_index = IndexValidator()
     destination_index = IndexValidator()
+
+    class Meta:
+        abstract = True
+
+
+class LetterSerializer(BaseSerializer):
     letter_weight = serializers.IntegerField(
         min_value=1,
         error_messages={'min_value': 'Минимальный вес посылки 1 грамм'},
@@ -76,12 +83,7 @@ class LetterSerializer(serializers.ModelSerializer):
         )
 
 
-class PackageSerializer(serializers.ModelSerializer):
-    sender_full_name = FullNameValidator()
-    recipient_full_name = FullNameValidator()
-    departure_index = IndexValidator()
-    destination_index = IndexValidator()
-
+class PackageSerializer(BaseSerializer):
     class Meta:
         model = Package
         fields = (
