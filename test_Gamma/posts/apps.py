@@ -2,6 +2,6 @@ from django.apps import AppConfig
 
 
 class PostsConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'posts'
-    verbose_name = 'Отправка Посылок и Писем'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "posts"
+    verbose_name = "Отправка Посылок и Писем"
