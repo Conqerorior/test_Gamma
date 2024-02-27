@@ -9,6 +9,12 @@ from posts.models import Letter, Package
 
 
 class FullNameValidator(serializers.CharField):
+    """
+    Валидатор для проверки корректности формата ФИО.
+
+    Проверяет, что значение поля ФИО состоит из букв и пробелов,
+    а также содержит как минимум три компонента: Фамилия, Имя, Отчество.
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(
@@ -37,6 +43,13 @@ class FullNameValidator(serializers.CharField):
 
 
 class IndexValidator(serializers.IntegerField):
+    """
+    Валидатор для проверки корректности формата почтового индекса.
+
+    Проверяет, что значение поля индекса состоит из 6 цифр и находится
+    в диапазоне от 100000 до 999999.
+    """
+
     def __init__(self):
         super().__init__(
             validators=[
@@ -53,6 +66,12 @@ class IndexValidator(serializers.IntegerField):
 
 
 class BaseSerializer(serializers.ModelSerializer):
+    """
+    Абстрактный сериализатор, предоставляющий общие поля д
+    ля моделей с отправителями и индексами.
+
+    """
+
     sender_full_name = FullNameValidator()
     recipient_full_name = FullNameValidator()
     departure_index = IndexValidator()
@@ -63,6 +82,10 @@ class BaseSerializer(serializers.ModelSerializer):
 
 
 class LetterSerializer(BaseSerializer):
+    """
+    Сериализатор для модели Letter.
+    """
+
     letter_weight = serializers.IntegerField(
         min_value=1,
         error_messages={'min_value': 'Минимальный вес посылки 1 грамм'},
@@ -84,6 +107,9 @@ class LetterSerializer(BaseSerializer):
 
 
 class PackageSerializer(BaseSerializer):
+    """
+    Сериализатор для модели Package.
+    """
     class Meta:
         model = Package
         fields = (
