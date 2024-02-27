@@ -2,21 +2,10 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-class Letter(models.Model):
+class BasePostModel(models.Model):
     """
-    Модель для представления информации о письмах.
+    Создание абстрактной модели для общих полей формы.
     """
-
-    LETTER = 0
-    REGISTERED_LETTER = 1
-    VALUABLE_LETTER = 2
-    EXPRESS_LETTER = 3
-    LETTER_TYPES = (
-        (LETTER, "Письмо"),
-        (REGISTERED_LETTER, "Заказное письмо"),
-        (VALUABLE_LETTER, "Ценное письмо"),
-        (EXPRESS_LETTER, "Экспресс-письмо"),
-    )
 
     sender_full_name = models.CharField(
         max_length=128, verbose_name="ФИО отправителя"
@@ -31,6 +20,26 @@ class Letter(models.Model):
     )
     destination_index = models.PositiveIntegerField(
         default=0, verbose_name="Индекс места получения"
+    )
+
+    class Meta:
+        abstract = True
+
+
+class Letter(BasePostModel):
+    """
+    Модель для представления информации о письмах.
+    """
+
+    LETTER = 0
+    REGISTERED_LETTER = 1
+    VALUABLE_LETTER = 2
+    EXPRESS_LETTER = 3
+    LETTER_TYPES = (
+        (LETTER, "Письмо"),
+        (REGISTERED_LETTER, "Заказное письмо"),
+        (VALUABLE_LETTER, "Ценное письмо"),
+        (EXPRESS_LETTER, "Экспресс-письмо"),
     )
     letter_type = models.PositiveSmallIntegerField(
         default=LETTER, choices=LETTER_TYPES, verbose_name="Тип письма"
@@ -49,7 +58,7 @@ class Letter(models.Model):
         )
 
 
-class Package(Letter):
+class Package(BasePostModel):
     """
     Модель для представления информации о посылках.
     """
