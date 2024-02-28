@@ -110,6 +110,7 @@ class PackageSerializer(BaseSerializer):
     """
     Сериализатор для модели Package.
     """
+
     class Meta:
         model = Package
         fields = (
