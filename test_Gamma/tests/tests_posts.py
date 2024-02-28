@@ -40,15 +40,11 @@ class LetterModelTestCase(TestCase):
         if not serializer.is_valid():
             print(serializer.errors)
 
-        with self.assertRaisesMessage(
-            ErrorDetail,
-            {
-                'destination_point': [
-                    ErrorDetail(string='Обязательное поле.', code='required')
-                ]
-            },
-        ):
-            Letter.objects.create(**invalid_letter_data)
+        assert serializer.errors == {
+            'destination_point': [
+                ErrorDetail(string='Обязательное поле.', code='required')
+            ]
+        }
 
 
 class PackageModelTestCase(TestCase):
